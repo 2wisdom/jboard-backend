@@ -6,6 +6,8 @@ import { AppService } from './app.service';
 import { PostsModule } from './posts/posts.module';
 import configuration from './config/configuration';
 import { PostEntity } from './entities/post.entity';
+import { UserModule } from './user/user.module';
+import { UserEntity } from './entities/user.entity';
 
 @Module({
   imports: [
@@ -23,11 +25,12 @@ import { PostEntity } from './entities/post.entity';
         username: config.getOrThrow('database.user'),
         password: config.getOrThrow('database.pass'),
         database: config.getOrThrow('database.name'),
-        entities: [PostEntity],
+        entities: [PostEntity, UserEntity],
         synchronize: true,
       }),
     }),
     PostsModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
