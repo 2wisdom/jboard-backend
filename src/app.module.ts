@@ -8,6 +8,8 @@ import configuration from './config/configuration';
 import { PostEntity } from './entities/post.entity';
 import { UserModule } from './user/user.module';
 import { UserEntity } from './entities/user.entity';
+import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -31,6 +33,7 @@ import { UserEntity } from './entities/user.entity';
     }),
     PostsModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
