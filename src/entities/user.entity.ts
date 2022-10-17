@@ -26,11 +26,11 @@ export class UserEntity extends BaseEntity {
   @Column()
   password: string;
 
-  @Column({ comment: 'idp' })
-  provider: string;
+  @Column({ comment: 'idp', nullable: true })
+  provider?: string;
 
-  @Column({ comment: 'idp 계정 아이디' })
-  providerAccountId: string;
+  @Column({ comment: 'idp 계정 아이디', nullable: true })
+  providerAccountId?: string;
 
   @CreateDateColumn()
   created_at: Date; // Creation date

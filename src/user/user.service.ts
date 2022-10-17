@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { nanoid } from 'nanoid';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
 
@@ -10,7 +11,7 @@ export class UserService {
     private repository: Repository<UserEntity>,
   ) {}
 
-  save(user: UserEntity) {
+  async save(user: Partial<UserEntity>) {
     return this.repository.save(user);
   }
 
@@ -18,6 +19,14 @@ export class UserService {
     return this.repository.findOne({
       where: {
         id,
+      },
+    });
+  }
+
+  findByEmail(email: string) {
+    return this.repository.findOne({
+      where: {
+        email,
       },
     });
   }
