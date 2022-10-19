@@ -3,6 +3,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as path from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -29,5 +30,7 @@ async function bootstrap() {
   const port = process.env.PORT || 3000;
 
   await app.listen(port);
+  const runningUrl = await app.getUrl();
+  Logger.log(`app runnint at ${runningUrl}`);
 }
 bootstrap();

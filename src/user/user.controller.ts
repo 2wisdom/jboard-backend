@@ -7,13 +7,14 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { PasswordProvider } from '../auth/password-provider';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UserRegisterDto } from './user-register.dto';
 import { UserService } from './user.service';
 import { nanoid } from 'nanoid';
 
+@ApiTags('유저')
 @Controller('user')
 export class UserController {
   constructor(

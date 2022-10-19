@@ -1,9 +1,10 @@
 import { Controller, Post, Request, UseGuards } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 import { LoginDto } from './login-dto';
 
+@ApiTags('인증')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}

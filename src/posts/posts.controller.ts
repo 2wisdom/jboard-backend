@@ -9,10 +9,11 @@ import {
   Query,
   Delete,
 } from '@nestjs/common';
-import { ApiOperation, ApiQuery } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { PostEntity } from '../entities/post.entity';
 import { PostsService } from './posts.service';
 
+@ApiTags('글')
 @Controller('posts')
 export class PostsController {
   constructor(private service: PostsService) {}
