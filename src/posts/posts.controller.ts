@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { PostEntity } from '../entities/post.entity';
+import { ManagePostDto } from './dto/manage-post.dto';
 import { PostsService } from './posts.service';
 
 @ApiTags('글')
@@ -34,14 +35,18 @@ export class PostsController {
     example: '10',
   })
   @Get()
-  list(
+  async list(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
   ) {
-    return this.service.findAll({
+    const { items, ...other } = await this.service.findAll({
       page,
       limit,
     });
+    return {
+      items,
+      ...other,
+    };
   }
 
   @ApiOperation({ summary: '글 상세정보' })
@@ -52,8 +57,9 @@ export class PostsController {
 
   @ApiOperation({ summary: '글 생성/수정' })
   @Post('')
-  async save(@Body() post: PostEntity) {
-    const { id } = await this.service.manage(post);
+  async save(@Body() post: ManagePostDto) {
+    const entity = PostEntity.create({ ...post });
+    const { id } = await this.service.manage(entity);
 
     return {
       id,

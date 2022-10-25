@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import _ from 'lodash';
+import { omit } from 'lodash';
 import { UserEntity } from '../entities/user.entity';
 import { UserService } from '../user/user.service';
 import { PasswordProvider } from './password-provider';
@@ -17,7 +17,7 @@ export class AuthService {
     username: string,
     pass: string,
   ): Promise<Omit<UserEntity, 'password'>> {
-    const user = await this.usersService.findOne(username);
+    const user = await this.usersService.findOneByEmail(username);
 
     if (!user) {
       throw new UnauthorizedException({
@@ -33,7 +33,7 @@ export class AuthService {
       return null;
     }
 
-    return _.omit(user, ['password']);
+    return omit(user, ['password']);
   }
 
   async login(user: Omit<UserEntity, 'password'>) {

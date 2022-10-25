@@ -1,3 +1,5 @@
+import { Exclude } from 'class-transformer';
+import { nanoid } from 'nanoid';
 import {
   BaseEntity,
   BeforeInsert,
@@ -8,7 +10,6 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { nanoid } from 'nanoid';
 
 @Entity({
   name: 'tbl_users',
@@ -23,6 +24,7 @@ export class UserEntity extends BaseEntity {
   @Column()
   name: string;
 
+  @Exclude()
   @Column()
   password: string;
 
